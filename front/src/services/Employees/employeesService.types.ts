@@ -56,3 +56,8 @@ export type EmployeesSearchFindDataProps = {
   filters: FiltersValueProps;
   sorting: SortingValueProps;
 };
+
+export type filtersDataProps = {
+  departments?: DepartmentProps[];
+  positions?: PositionProps[];
+};

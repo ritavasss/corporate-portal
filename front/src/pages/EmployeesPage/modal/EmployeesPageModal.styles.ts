@@ -58,6 +58,22 @@ export const useStyles = makeStyles()(() => ({
     display: "flex",
     gap: "10px",
   },
+  cancelButton: {
+    backgroundColor: "#E4F4FF",
+    borderRadius: "30px",
+    color: "#3798EA",
+    fontFamily: "Open Sans",
+    textTransform: "none",
+    width: "100px",
+  },
+  saveButton: {
+    backgroundColor: "#3798EA",
+    borderRadius: "30px",
+    color: "white",
+    fontFamily: "Open Sans",
+    textTransform: "none",
+    width: "100px",
+  },
   input: {
     border: "1px solid rgba(0, 0, 0, 0.23)",
     borderRadius: "30px",

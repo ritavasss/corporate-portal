@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-
 import { CustomAutocomplete } from "../../components/common/CustomAutocomplete";
 import { Button } from "@mui/material";
 import { useStyles } from "./EmployeesPageFilters.styles";
-import { fetchDepartments, fetchPositions } from "../../services";
-import { DepartmentProps, PositionProps } from "../../services/Employees/employeesService.types";
+import { DepartmentProps, filtersDataProps, PositionProps } from "../../services/Employees/employeesService.types";
 
 type Props = {
+  filtersData: filtersDataProps;
   selectedDepartments: DepartmentProps[];
   setSelectedDepartments: (selectedDepartments: DepartmentProps[]) => void;
   selectedPositions: PositionProps[];
@@ -14,10 +12,11 @@ type Props = {
   selectedStatus: boolean | undefined;
   setSelectedStatus: (selectedStatus: boolean | undefined) => void;
   apply: () => void;
-  clear: () => void
+  clear: () => void;
 }
 
 const EmployeesPageFilters = ({
+  filtersData,
   selectedDepartments,
   setSelectedDepartments,
   selectedPositions,
@@ -28,40 +27,20 @@ const EmployeesPageFilters = ({
   clear,
 }: Props) => {
   const { classes } = useStyles();
-  
-  const [departments, setDepartments] = useState<DepartmentProps[]>([]);
-  const [positions, setPositions] = useState<PositionProps[]>([]);
-
-  useEffect(() => {
-    const getFiltersData = async () => {
-      try {
-        const [departmentsData, positionsData] = await Promise.all([
-          fetchDepartments(),
-          fetchPositions(),
-        ]);
-        setDepartments(departmentsData);
-        setPositions(positionsData);
-      } catch (error) {
-        console.error("Error fetching filters data:", error);
-      }
-    };
-  
-    getFiltersData();
-  }, []);
 
   return (
     <div className={classes.filtersContainer}>
       <div className={classes.filters}>
         <CustomAutocomplete
           multiple
-          options={departments}
+          options={filtersData.departments || []}
           values={selectedDepartments}
           setValues={setSelectedDepartments}
           lable="Департамент"
         />
         <CustomAutocomplete
           multiple
-          options={positions}
+          options={filtersData.positions || []}
           values={selectedPositions}
           setValues={setSelectedPositions}
           lable="Должность"

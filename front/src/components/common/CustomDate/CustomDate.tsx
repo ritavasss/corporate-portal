@@ -11,11 +11,11 @@ import Moment from "moment";
 
 const customDate = {
   format: ({ val, formatIn = "yyyy-MM-DD", formatOut = "DD.MM.yyyy" }: { val: string | Date; formatIn?: string; formatOut?: string }) => {
-    const d = Moment(val, formatIn);
-
+    const d = Moment(val instanceof Date ? val : val, formatIn);
     return d.isValid() ? d.format(formatOut) : "";
   }
 };
+
 const getDate = (value?: any) => {
   if (typeof value === "string") {
     return new Date(value);
@@ -58,9 +58,9 @@ const CustomDate = ({ label, value, readOnly, onChange }: Props) => {
           onChange={(value) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            const val = value instanceof Date && !isNaN(value) ?
-              customDate.format({ val: value.toISOString(), formatIn: "yyyy-MM-DD", formatOut: "yyyy-MM-DD" }) :
-              undefined;
+            const val = value instanceof Date && !isNaN(value)
+              ? customDate.format({ val: value, formatIn: undefined, formatOut: "yyyy-MM-DD" })
+              : undefined;
             onChange(val);
           }}
           slotProps={{

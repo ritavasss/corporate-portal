@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(() => ({
 
   table: {
     width: "100%",
+    minWidth: "1650px",
     borderCollapse: "collapse",
     borderRadius: "8px",
     borderSpacing: "0",
@@ -11,9 +12,6 @@ export const useStyles = makeStyles()(() => ({
       borderBottom: "1px solid #3797E9",
       backgroundColor: "#E4F4FF",
       height: "54.25px",
-      position: "sticky",
-      top: "0",
-      zIndex: "100",
       "> th": {
         padding: "8px 12px",
         textAlign: "left",
@@ -35,6 +33,10 @@ export const useStyles = makeStyles()(() => ({
       },
     },
   },
+  horizontalScroll: {
+    overflowX: "auto",
+    width: "100%",
+  },  
   status: {
     backgroundColor: "#DAF3DE",
     color: "#48B763",
@@ -47,6 +49,7 @@ export const useStyles = makeStyles()(() => ({
   },
   scrollContainer: {
     height: "100%",
+    minHeight: "100%",
     overflowY: "auto",
 
     "&::-webkit-scrollbar": {
@@ -135,5 +138,16 @@ export const useStyles = makeStyles()(() => ({
       fontSize: "14px",
       paddingLeft: "10px !important",
     },
+  },
+  loaderContainer: {
+    position: "fixed",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 0,
+    width: "100%",
+    height: "100%",
+    marginTop: "50px",
+    left: "-50px"
   },
 }));

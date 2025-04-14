@@ -13,14 +13,17 @@ import { useStyles } from "./EmployeesPageTable.styles";
 import { EmployeeModal } from "./modal/EmployeesPageModal";
 import { SortingIcon } from "../../assets/icons";
 import { CustomAutocomplete } from "../../components/common/CustomAutocomplete";
-import { Employee } from "../../services/Employees/employeesService.types";
+import { Employee, filtersDataProps } from "../../services/Employees/employeesService.types";
+import { Loader } from "../../components";
 
-const EmployeesTable = ({ data, sorting, onSortingChange, setIsRefresh }:
+const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange, setIsRefresh }:
   { 
-    data: Employee[],
-    sorting: SortingState,
-    onSortingChange: (updater: SortingState | ((old: SortingState) => SortingState)) => void,
-    setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>
+    filtersData: filtersDataProps;
+    data: Employee[];
+    isLoading: boolean;
+    sorting: SortingState;
+    onSortingChange: (updater: SortingState | ((old: SortingState) => SortingState)) => void;
+    setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>;
   }) => {
   const { classes } = useStyles();
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
@@ -85,6 +88,21 @@ const EmployeesTable = ({ data, sorting, onSortingChange, setIsRefresh }:
     },
   ];
 
+  // Обработчик клика по заголовку сортировки
+  const handleSortingChange = (columnId: string) => {
+    const currentSorting = sorting.find(s => s.id === columnId);
+    let newSortingDirection: 'asc' | 'desc';
+
+    if (!currentSorting) {
+      newSortingDirection = 'asc';
+    } else {
+      newSortingDirection = currentSorting.desc ? 'asc' : 'desc';
+    }
+    onSortingChange([
+      { id: columnId, desc: newSortingDirection === 'desc' },
+    ]);
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -108,45 +126,42 @@ const EmployeesTable = ({ data, sorting, onSortingChange, setIsRefresh }:
 
   return (
     <>
-      <table className={classes.table}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  style={{
-                    paddingLeft: "12px",
-                    width: `${header.column.getSize()}px`,
-                    cursor: header.column.getCanSort() ? "pointer" : "default",
-                  }}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {header.column.getCanSort() && (
-                      <div
-                      style={{
-                        transform: `
-                          rotate(${header.column.getIsSorted() === "asc" ? "180deg" : "0deg"}) 
-                          scaleX(${header.column.getIsSorted() === "asc" ? -1 : 1})
-                        `,
-                      }}
-                    
-                      >
-                        <SortingIcon width={"14px"} height={"14px"} fill={header.column.getIsSorted() ? "#3798EA" : "#0000003b"}/>
-                      </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-      </table>
-
+      {isLoading && <div className={classes.loaderContainer}><Loader /></div>}
       <div className={classes.scrollContainer}>
         <table className={classes.table}>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    style={{
+                      paddingLeft: "12px",
+                      width: `${header.column.getSize()}px`,
+                      cursor: header.column.getCanSort() ? "pointer" : "default",
+                    }}
+                    onClick={() => handleSortingChange(header.id)}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.column.getCanSort() && (
+                        <div
+                          style={{
+                            transform: `
+                              rotate(${header.column.getIsSorted() === "asc" ? "180deg" : "0deg"}) 
+                              scaleX(${header.column.getIsSorted() === "asc" ? -1 : 1})
+                            `,
+                          }}
+                        >
+                          <SortingIcon width={"14px"} height={"14px"} fill={header.column.getIsSorted() ? "#3798EA" : "#0000003b"}/>
+                        </div>
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
               <tr 
@@ -219,9 +234,10 @@ const EmployeesTable = ({ data, sorting, onSortingChange, setIsRefresh }:
           </div>
         </div>
       </div>
-      <EmployeeModal 
+      <EmployeeModal
+        filtersData={filtersData}
         employee={selectedEmployee}
-        onSave={() => setIsRefresh(true)}
+        refresh={() => setIsRefresh(true)}
         onClose={() => setSelectedEmployee(null)}
       />
     </>

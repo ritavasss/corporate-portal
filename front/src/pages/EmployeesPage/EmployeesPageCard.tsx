@@ -3,9 +3,9 @@ import clsx from "clsx";
 
 import { useStyles } from "./EmployeesPageCard.styles";
 import { EmployeeModal } from "./modal/EmployeesPageModal";
-import { Employee } from "../../services/Employees/employeesService.types";
+import { Employee, filtersDataProps } from "../../services/Employees/employeesService.types";
 
-const Card = ({employee, onClick } : {employee: Employee, onClick: () => void}) => {
+const Card = ({ employee, onClick } : {employee: Employee, onClick: () => void}) => {
   const {classes} = useStyles();
   
   return (
@@ -23,7 +23,11 @@ const Card = ({employee, onClick } : {employee: Employee, onClick: () => void}) 
     </div>
   )
 }
-const EmployeesPageCard = ({data, setIsRefresh} : {data: Employee[], setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const EmployeesPageCard = ({ filtersData, data, setIsRefresh} : {
+  filtersData: filtersDataProps,
+  data: Employee[],
+  setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   const {classes} = useStyles();
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
@@ -41,8 +45,9 @@ const EmployeesPageCard = ({data, setIsRefresh} : {data: Employee[], setIsRefres
         </div>
       </div>
       <EmployeeModal
+        filtersData={filtersData}
         employee={selectedEmployee}
-        onSave={() => setIsRefresh(true)}
+        refresh={() => setIsRefresh(true)}
         onClose={() => setSelectedEmployee(null)}
       />
     </>

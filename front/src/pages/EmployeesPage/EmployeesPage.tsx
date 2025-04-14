@@ -12,20 +12,23 @@ import {
   DepartmentProps,
   Employee,
   EmployeesSearchFindDataProps,
+  filtersDataProps,
   FilterSortFieldEnum,
   FilterSortOrderEnum,
   FiltersValueProps,
   PositionProps
 } from "../../services/Employees/employeesService.types";
-import { fetchFilteredEmployees } from "../../services";
+import { fetchDepartments, fetchFilteredEmployees, fetchPositions } from "../../services";
 
 const EmployeesPage = () => {
   const {classes} = useStyles();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [view, setView] = useState("table");
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const [isCollapsedFilters, setIsCollapsedFilters] = useState(true);
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
+  const [filtersData, setFiltersData] = useState<filtersDataProps>({})
   const [searchText, setSearchText] = useState<string>("");
   const [selectedDepartments, setSelectedDepartments] = useState<DepartmentProps[]>([]);
   const [selectedPositions, setSelectedPositions] = useState<PositionProps[]>([]);
@@ -71,21 +74,46 @@ const EmployeesPage = () => {
 
     return payload;
   }
+  const loadEmployees = async () => {
+    try {
+      const payload = getPayloadFilters();
+      const response = await fetchFilteredEmployees(payload);
+
+      setTimeout(() => {
+        setEmployees(response.data);
+        setIsLoading(false);
+        setIsRefresh(false);
+      }, 800);
+
+    } catch (error) {
+      console.error("Ошибка при получении данных о сотрудниках:", error);
+    }
+  };
 
   useEffect(() => {
-    const loadEmployees = async () => {
-      try {
-        const payload = getPayloadFilters();
-        const response = await fetchFilteredEmployees(payload);
-        setEmployees(response.data);
-        setIsRefresh(false);
-      } catch (error) {
-        console.error("Ошибка при получении данных о сотрудниках:", error);
-      }
-    };
-  
+    setIsLoading(true);
     loadEmployees();
   }, [searchText, filtersValue, sorting, isRefresh]);
+
+  
+  const getFiltersData = async () => {
+    try {
+      const [departmentsData, positionsData] = await Promise.all([
+        fetchDepartments(),
+        fetchPositions(),
+      ]);
+      setFiltersData({
+        departments: departmentsData,
+        positions: positionsData
+      })
+    } catch (error) {
+      console.error("Error fetching filters data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    getFiltersData();
+  }, []);
   
   const clear = () => {
     setSearchValue("");
@@ -112,6 +140,7 @@ const EmployeesPage = () => {
       
         {!isCollapsedFilters && 
           <EmployeesPageFilters
+            filtersData={filtersData}
             selectedDepartments={selectedDepartments}
             setSelectedDepartments={setSelectedDepartments}
             selectedPositions={selectedPositions}
@@ -145,15 +174,18 @@ const EmployeesPage = () => {
           </div>
         </div>
       </div>*/}
-      <div className={classes.contentContainer}>
+      <div className={classes.contentContainer} style={{ opacity : isLoading ? 0.5 : 1 }}>
         {view === "table" ? 
-          <EmployeesTable 
+          <EmployeesTable
+            filtersData={filtersData}
             data={employees}
+            isLoading={isLoading}
             sorting={sorting}
             onSortingChange={setSorting}
             setIsRefresh={setIsRefresh}
           /> :
-          <EmployeesPageCard 
+          <EmployeesPageCard
+            filtersData={filtersData}
             data={employees}
             setIsRefresh={setIsRefresh}
           />

@@ -41,6 +41,7 @@ const CustomAutocomplete = ({
             variant="outlined"
             placeholder={ multiple && values.length ? "Поиск" : "Выберите" }
             className={classes.textField}
+            inputProps={{ ...params.inputProps, readOnly: disableClearIcon ? true : false }}
           />
         )}
         renderOption={(props, option, { selected }) => (
