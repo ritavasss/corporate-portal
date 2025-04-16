@@ -9,9 +9,11 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: "8px",
     borderSpacing: "0",
     "> thead > tr": {
-      borderBottom: "1px solid #3797E9",
       backgroundColor: "#E4F4FF",
       height: "54.25px",
+      position: "sticky",
+      top: "0",
+      boxShadow: "inset 0 -1px 0 #3797E9",
       "> th": {
         padding: "8px 12px",
         textAlign: "left",
@@ -48,7 +50,7 @@ export const useStyles = makeStyles()(() => ({
     },
   },
   scrollContainer: {
-    height: "100%",
+    height: "100svh",
     minHeight: "100%",
     overflowY: "auto",
 
@@ -87,6 +89,17 @@ export const useStyles = makeStyles()(() => ({
     fontWeight: 400,
     filter: "drop-shadow(5px 5px 5px rgba(0,0,0,0.3))",
     borderRadius: "8px",
+  },
+  notFoundIcon: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "32px",
+    gap: 6,
+    "> span": {
+      fontFamily: "Open Sans",
+    },
   },
   pagination: {
     display: "flex",

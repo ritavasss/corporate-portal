@@ -1,9 +1,18 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AdaptationProgramImg, CompanyInfoImg, CompanyProjectsImg, CorporateCultureImg, EquipmentRemovalImg, PersonnelIssuesImg, RedmineLaborImg, ReferalProgramImg } from "../../assets/images";
-import { MainPageItem } from "./MainPageItems";
 import { useStyles } from "./MainPage.styles";
+import {
+  AdaptationProgramImg,
+  CompanyInfoImg,
+  CompanyProjectsImg,
+  CorporateCultureImg,
+  EquipmentRemovalImg,
+  PersonnelIssuesImg,
+  RedmineLaborImg,
+  ReferalProgramImg
+} from "@assets/images";
+import { MainPageItem } from "./MainPageItems";
   
 const MainPage: FC = () => {
 

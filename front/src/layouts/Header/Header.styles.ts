@@ -16,8 +16,17 @@ export const useStyles = makeStyles()(() => ({
     height: "100%",
     padding: "0 130px",
 
+    "> svg": {
+      cursor: "pointer",
+    },
     "@media (max-width: 520px)": {
       padding: "0 20px",
+    },
+  },
+  loginButton: {
+    "> svg": {
+      width: "20px",
+      height: "20px",
     },
   },
   headerName: {

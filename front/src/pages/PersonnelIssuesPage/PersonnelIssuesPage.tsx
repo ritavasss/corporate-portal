@@ -1,12 +1,9 @@
 import { FC } from "react";
 
-import { PictureComp } from "../../components/common/PictureComp/PictureComp";
-import { PersonnelIssuesImg } from "../../assets/images/PersonnelIssuesImg/PersonnelIssuesImg";
-import { Ellipse } from "../../components/common/Ellipse/Ellipse";
-import { PersonnelIssuesImgForPageFirst, PersonnelIssuesImgForPageSecond } from "../../assets/images/PersonnelIssuesImg/PersonnelIssuesImgPage";
-import { BackButton } from "../../components";
 import { useStyles } from "../CommonPages.style";
-
+import { PersonnelIssuesImg } from "@assets/images";
+import { PersonnelIssuesImgForPageFirst, PersonnelIssuesImgForPageSecond } from "@assets/images/PersonnelIssuesImg/PersonnelIssuesImgPage";
+import { BackButton, Ellipse, PictureComp } from "@modules/common/components";
 
 const PersonnelIssuesPage: FC = () => {
 

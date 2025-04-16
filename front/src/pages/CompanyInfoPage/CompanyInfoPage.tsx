@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
-import { CompanyInfoImg, DottedOutline4 } from "../../assets/images";
-import { BackButton, PictureComp } from "../../components";
-import { LogoIcon, LogoPart1, LogoPart2 } from "../../assets/icons";
 import { useStyles } from "../CommonPages.style";
+import { BackButton, PictureComp } from "@modules/common/components";
+import { LogoIcon, LogoPart1, LogoPart2 } from "@assets/icons";
+import { CompanyInfoImg, DottedOutline4 } from "@assets/images";
 
 const LogoItem = ({picture, text, top}: {picture: any, text: string, top: number}) => {
   return (

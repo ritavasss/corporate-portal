@@ -1,10 +1,8 @@
 import { FC } from "react";
-import { BackButton } from "../../components/common/BackButton/BackButton";
+
 import { useStyles } from "../CommonPages.style";
-import { Ellipse } from "../../components/common/Ellipse/Ellipse";
-import { PictureComp } from "../../components/common/PictureComp/PictureComp";
-import { ReferalProgramImg } from "../../assets/images/ReferalProgramImg/ReferalProgramImg";
-import { DottedOutline3 } from "../../assets/images/DottedOutline/DottedOutline";
+import { BackButton, Ellipse, PictureComp } from "@modules/common/components";
+import { DottedOutline3, ReferalProgramImg } from "@assets/images";
 
 
 const ReferalProgramPage: FC = () => {

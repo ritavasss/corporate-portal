@@ -2,11 +2,10 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
-import { projectsData } from "../../../data/projectsData";
-import { DottedOutline3, ProjectPageImg } from "../../../assets/images";
-import { BackButton, Ellipse, PictureComp } from "../../../components";
 import { useStyles } from "../../CommonPages.style";
-
+import { projectsData } from "@data/projectsData";
+import { DottedOutline3, ProjectPageImg } from "@assets/images";
+import { BackButton, Ellipse, PictureComp } from "@modules/common/components";
 
 const ProjectPage: FC = () => {
   const { projectId } = useParams<{ projectId: string }>();

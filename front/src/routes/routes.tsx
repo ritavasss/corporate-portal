@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Layout } from "../layouts/Layout";
-import { ProjectPage } from "../pages/CompanyProjectsPage/ProjectPage/ProjectPage";
+import { Layout } from "@layouts/Layout";
+import { ProjectPage } from "@pages/CompanyProjectsPage/ProjectPage/ProjectPage";
 import { 
   AdaptationProgramPage,
+  AutorizationPage,
   CompanyInfoPage,
   CompanyProjectsPage,
   CorporateCulturePage,
@@ -15,7 +16,7 @@ import {
   PersonnelIssuesPage,
   RedmineLaborPage,
   ReferalProgramPage
-} from "../pages";
+} from "@pages/index";
 
 const AppRoutes: FC = () => {
   return (
@@ -36,6 +37,7 @@ const AppRoutes: FC = () => {
           <Route path="company-projects/emi/:projectId" element={<ProjectPage />} />
           <Route path="company-info/employees" element={<EmployeesPage />}/>
         </Route>
+        <Route path="login" element={<AutorizationPage />} />
       </Routes>
     </Router>
   )

@@ -2,7 +2,7 @@ import { Button, InputAdornment, InputBase, Tooltip } from "@mui/material";
 import clsx from "clsx";
 
 import { useStyles } from "./EmployeesPageSearch.styles";
-import { ChevronIcon, DisplayCardIcon, DisplayTableIcon, FilterFilledIcon, FilterIcon, ResetIcon, SearchIcon } from "../../assets/icons";
+import { ChevronIcon, DisplayCardIcon, DisplayTableIcon, FilterFilledIcon, FilterIcon, ResetIcon, SearchIcon } from "@assets/icons";
 
 type Props = {
   searchValue: string;

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { SortingState } from "@tanstack/react-table";
 
-import { BackButton } from "../../components";
+import { useStyles } from "./EmployeesPage.styles";
+import { BackButton } from "@modules/common/components";
 import { EmployeesTable } from "./EmployeesPageTable";
 import { EmployeesSearch } from "./EmployeesPageSearch";
 import { EmployeesPageCard } from "./EmployeesPageCard";
 import { EmployeesPageFilters } from "./EmployeesPageFilters";
-import { useStyles } from "./EmployeesPage.styles";
 
 import {
   DepartmentProps,

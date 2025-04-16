@@ -1,6 +1,17 @@
 import { makeStyles } from "tss-react/mui";
 
 export const useStyles = makeStyles()(() => ({
+  modal: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 800,
+    backgroundColor: "white",
+    padding: "32px",
+    paddingBottom: "24px",
+    borderRadius: "8px",
+  },
   image: {
     borderRadius: "12px",
     width: "200px",

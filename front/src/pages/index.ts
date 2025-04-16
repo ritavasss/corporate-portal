@@ -8,3 +8,4 @@ export * from "./EquipmentRemovalPage";
 export * from "./RedmineLaborPage";
 export * from "./CorporateCulturePage";
 export * from "./EmployeesPage";
+export * from "./AuthorizationPage";

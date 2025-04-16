@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Modal, Box, Typography, Button, Divider, InputBase, Tooltip } from "@mui/material";
 
 import { useStyles } from "./EmployeesPageModal.styles";
-import { GarbageIcon, ResetIcon } from "../../../assets/icons";
-import { CustomAutocomplete } from "../../../components/common/CustomAutocomplete";
-import { CustomDate } from "../../../components/common/CustomDate";
-import { Employee, filtersDataProps } from "../../../services/Employees/employeesService.types";
-import { deleteEmployee, updateEmployee } from "../../../services";
-import { ConfirmModal } from "../../../components/common/ConfirmModal/ConfirmModal";
+import { GarbageIcon, ResetIcon } from "@/assets/icons";
+import { Employee, filtersDataProps } from "@services/Employees/employeesService.types";
+import { deleteEmployee, updateEmployee } from "@services/index";
+import { CustomDate, CustomAutocomplete, ConfirmModal } from "@modules/common/components";
 
 interface EmployeeModalProps {
   filtersData: filtersDataProps;
@@ -66,19 +64,7 @@ const EmployeeModal = ({ filtersData, employee, refresh, onClose }: EmployeeModa
   return (
     <>
       <Modal open={!!employee} onClose={onClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 800,
-            bgcolor: "white",
-            p: 4,
-            pb: 3,
-            borderRadius: "8px",
-          }}
-        >
+        <Box className={classes.modal}>
           {employee && (
             <>
               <Button

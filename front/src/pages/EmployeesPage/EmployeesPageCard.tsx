@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import { useStyles } from "./EmployeesPageCard.styles";
 import { EmployeeModal } from "./modal/EmployeesPageModal";
-import { Employee, filtersDataProps } from "../../services/Employees/employeesService.types";
+import { Employee, filtersDataProps } from "@services/Employees/employeesService.types";
 
 const Card = ({ employee, onClick } : {employee: Employee, onClick: () => void}) => {
   const {classes} = useStyles();

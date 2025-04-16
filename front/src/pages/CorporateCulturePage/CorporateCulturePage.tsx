@@ -1,9 +1,8 @@
 import { FC } from "react";
 
-import { BackButton } from "../../components";
-import { FolderImg } from "../../assets/images";
 import { useStyles } from "../CommonPages.style";
-
+import { BackButton } from "@modules/common/components";
+import { FolderImg } from "@assets/images";
 
 const Item = ({text}: {text: string}) => {
 

@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { useStyles } from "./Header.styles";
-import { LogoIcon } from "../../assets/icons/LogoIcon/Logo";
 import { Link } from "react-router-dom";
+import { Tooltip } from "@mui/material";
+
+import { useStyles } from "./Header.styles";
+import { LogoIcon, LogoutIcon } from "../../assets";
 
 const Header: FC = () => {
   const { classes } = useStyles();
@@ -12,7 +14,13 @@ const Header: FC = () => {
         <Link to="/">
           <LogoIcon />
         </Link>
-        {/*<h2 className={classes.headerName}>Stickers</h2>*/}
+        <Tooltip title="Войти">
+          <Link to="/login">
+            <div className={classes.loginButton}>
+              <LogoutIcon />
+            </div>
+          </Link>
+        </Tooltip>
       </div>
     </div>
   )

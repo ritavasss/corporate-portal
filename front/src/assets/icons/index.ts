@@ -13,3 +13,4 @@ export * from "./ResetIcon/ResetIcon";
 export * from "./EditIcon/EditIcon";
 export * from "./GarbageIcon/GarbageIcon";
 export * from "./WarningOrangeCircleIcon/WarningOrangeCircleIcon";
+export * from "./LogoutIcon/LogoutIcon";

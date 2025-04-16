@@ -1,7 +1,8 @@
-import { CustomAutocomplete } from "../../components/common/CustomAutocomplete";
 import { Button } from "@mui/material";
+
 import { useStyles } from "./EmployeesPageFilters.styles";
-import { DepartmentProps, filtersDataProps, PositionProps } from "../../services/Employees/employeesService.types";
+import { DepartmentProps, filtersDataProps, PositionProps } from "@services/Employees/employeesService.types";
+import { CustomAutocomplete } from "@modules/common/components";
 
 type Props = {
   filtersData: filtersDataProps;

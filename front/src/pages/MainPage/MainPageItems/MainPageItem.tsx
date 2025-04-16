@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { DottedOutline } from "../../../assets/images/DottedOutline/DottedOutline";
+
 import { useStyles } from "./MainPageItem.styles";
+import { DottedOutline } from "@/assets";
 
 type Props = {
   title: string,

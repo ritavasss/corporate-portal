@@ -43,7 +43,7 @@ export const useStyles = makeStyles()(() => ({
     },
     ":after, :before": {
       display: "none",
-    }
+    },
   },
   searchIcon: {
     marginLeft: 8,

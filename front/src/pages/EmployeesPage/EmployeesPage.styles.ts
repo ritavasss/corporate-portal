@@ -5,6 +5,7 @@ export const useStyles = makeStyles()(() => ({
     display: "flex",
     flexDirection: "column",
     maxHeight: "calc(-89px + 100svh)",
+    minHeight: "calc(-89px + 100svh)",
     boxSizing: "border-box",
     overflow: "hidden",
     padding: "40px 130px 20px 130px",
@@ -16,6 +17,7 @@ export const useStyles = makeStyles()(() => ({
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
   },
   tabContainer: {
     display: "flex",

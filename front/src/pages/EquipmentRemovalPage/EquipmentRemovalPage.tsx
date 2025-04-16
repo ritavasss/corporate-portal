@@ -1,9 +1,8 @@
 import { FC } from "react";
 
-import { BackButton, Ellipse, PictureComp } from "../../components";
-import { EquipmentRemovalImg } from "../../assets/images";
 import { useStyles } from "../CommonPages.style";
-
+import { BackButton, Ellipse, PictureComp } from "@modules/common/components";
+import { EquipmentRemovalImg } from "@assets/images";
 
 const EquipmentRemovalPage: FC = () => {
 

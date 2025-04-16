@@ -1,11 +1,8 @@
 import { FC } from "react";
-import { BackButton } from "../../components/common/BackButton/BackButton";
-import { RedmineLaborImg } from "../../assets/images/RedmineLaborImg/RedmineLaborImg";
-import { useStyles } from "../CommonPages.style";
-import { PictureComp } from "../../components/common/PictureComp/PictureComp";
-import { Ellipse } from "../../components/common/Ellipse/Ellipse";
-import { DottedOutline3 } from "../../assets/images/DottedOutline/DottedOutline";
 
+import { useStyles } from "../CommonPages.style";
+import { RedmineLaborImg, DottedOutline3 } from "@assets/images";
+import { BackButton, PictureComp, Ellipse } from "@modules/common/components";
 
 const RedmineLaborPage: FC = () => {
 

@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BackButton } from "../../components";
-
+import { BackButton } from "@modules/common/components";
 
 const projects = [
   { name: "Проект", color: "#84CEEB", path: "/company-projects/project1" },

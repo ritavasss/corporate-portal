@@ -1,10 +1,9 @@
 import { FC } from "react";
 
-import { BackButton, PictureComp, Ellipse } from "../../components";
-import { AdaptationProgramImg } from "../../assets/images";
-import { WayImg } from "./WayImg";
 import { useStyles } from "../CommonPages.style";
-
+import { BackButton, PictureComp, Ellipse } from "@modules/common/components";
+import { AdaptationProgramImg } from "@assets/images";
+import { WayImg } from "./WayImg";
 
 const FrameItems = ({title, text} : {title: string, text: string}) => {
   return (

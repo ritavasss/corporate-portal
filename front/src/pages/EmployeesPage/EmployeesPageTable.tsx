@@ -7,14 +7,14 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { Tooltip } from "@mui/material";
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import clsx from "clsx";
 
 import { useStyles } from "./EmployeesPageTable.styles";
 import { EmployeeModal } from "./modal/EmployeesPageModal";
-import { SortingIcon } from "../../assets/icons";
-import { CustomAutocomplete } from "../../components/common/CustomAutocomplete";
-import { Employee, filtersDataProps } from "../../services/Employees/employeesService.types";
-import { Loader } from "../../components";
+import { SortingIcon } from "@assets/icons";
+import { Employee, filtersDataProps } from "@services/Employees/employeesService.types";
+import { CustomAutocomplete, Loader } from "@modules/common/components";
 
 const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange, setIsRefresh }:
   { 
@@ -184,8 +184,14 @@ const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange
             ))}
           </tbody>
         </table>
+        {data.length === 0 &&
+        <div className={classes.notFoundIcon}>
+          <PersonSearchIcon sx={{ color: "grey", width: "80px", height: "80px" }} />
+          <span>По вашему запросу ничего не найдено</span>
+          <span style={{ fontSize: "14px", color: "grey" }}>Попробуйте изменить параметры поиска</span>
+        </div>
+        }
       </div>
-
       <div className={classes.pagination}>
         <div className={classes.buttons}>
           <button
