@@ -1,8 +1,13 @@
 package com.dfs.corporate_portal.dto;
 
 import com.dfs.corporate_portal.repository.Employee;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 public class EmployeeListResponse {
 
     private List<Employee> data;
@@ -13,19 +18,4 @@ public class EmployeeListResponse {
         this.total = total;
     }
 
-    public List<Employee> getData() {
-        return data;
-    }
-
-    public void setData(List<Employee> data) {
-        this.data = data;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
 }

@@ -1,7 +1,11 @@
 package com.dfs.corporate_portal.repository;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "department")
 public class Department {
@@ -24,38 +28,6 @@ public class Department {
     public Department(String name, String shortName, String directorName) {
         this.name = name;
         this.shortName = shortName;
-        this.directorName = directorName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getDirectorName() {
-        return directorName;
-    }
-
-    public void setDirectorName(String directorName) {
         this.directorName = directorName;
     }
 

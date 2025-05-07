@@ -1,5 +1,6 @@
 package com.dfs.corporate_portal.service;
 
+import com.dfs.corporate_portal.dto.EmployeeCreateRequest;
 import com.dfs.corporate_portal.dto.EmployeeFilterRequest;
 import com.dfs.corporate_portal.dto.EmployeeListResponse;
 import com.dfs.corporate_portal.dto.EmployeeUpdateRequest;
@@ -114,6 +115,7 @@ public class EmployeeService {
             employee.setVacationStart(updateRequest.getVacationStart());
             employee.setVacationEnd(updateRequest.getVacationEnd());
             employee.setAdditionalInfo(updateRequest.getAdditionalInfo());
+            employee.setBirth(updateRequest.getBirth());
 
             // Получаем связанные сущности должности и департамента
             Position position = positionRepository.findById(updateRequest.getPositionId()).orElse(null);
@@ -140,5 +142,37 @@ public class EmployeeService {
             return true;
         }
         return false;
+    }
+
+    public Employee createEmployee(EmployeeCreateRequest createRequest) {
+        // Get position and department from repositories
+        Position position = positionRepository.findById(createRequest.getPositionId())
+                .orElseThrow(() -> new RuntimeException("Position not found"));
+        Department department = departmentRepository.findById(createRequest.getDepartmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        // Create new employee entity
+        Employee employee = new Employee(
+                createRequest.getSurname(),
+                createRequest.getName(),
+                position,
+                department,
+                createRequest.getEmail(),
+                createRequest.getTelegram(),
+                createRequest.getBirth(),
+                createRequest.getAdditionalInfo(),
+                createRequest.getOnVacation(),
+                createRequest.getVacationStart(),
+                createRequest.getVacationEnd(),
+                createRequest.getRedmineId()
+        );
+
+        // Set photo if provided
+        if (createRequest.getPhoto() != null) {
+            employee.setPhoto(createRequest.getPhoto());
+        }
+
+        // Save and return the new employee
+        return employeeRepository.save(employee);
     }
 }
