@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useStyles } from "./EmployeesPageCard.styles";
 import { EmployeeModal } from "./modal/EmployeesPageModal";
 import { Employee, filtersDataProps } from "@services/Employees/employeesService.types";
+import { Loader } from "@/modules/common/components";
 
 const Card = ({ employee, onClick } : {employee: Employee, onClick: () => void}) => {
   const {classes} = useStyles();
@@ -23,9 +24,10 @@ const Card = ({ employee, onClick } : {employee: Employee, onClick: () => void})
     </div>
   )
 }
-const EmployeesPageCard = ({ filtersData, data, setIsRefresh} : {
+const EmployeesPageCard = ({ filtersData, data, isLoading, setIsRefresh} : {
   filtersData: filtersDataProps,
   data: Employee[],
+  isLoading: boolean;
   setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const {classes} = useStyles();
@@ -33,6 +35,7 @@ const EmployeesPageCard = ({ filtersData, data, setIsRefresh} : {
 
   return (
     <>
+      {isLoading && <div className={classes.loaderContainer}><Loader /></div>}
       <div className={classes.scrollContainer}>
         <div className={classes.cardsContainer}>
           {data.map((employee: Employee, index: number) => (
@@ -45,6 +48,7 @@ const EmployeesPageCard = ({ filtersData, data, setIsRefresh} : {
         </div>
       </div>
       <EmployeeModal
+        isOpen={selectedEmployee !== null}
         filtersData={filtersData}
         employee={selectedEmployee}
         refresh={() => setIsRefresh(true)}

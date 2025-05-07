@@ -6,7 +6,7 @@ export const useStyles = makeStyles()(() => ({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: "40px",
-    gap: "48px",
+    gap: "46px",
   },
   filters: {
     display: "flex",
@@ -26,6 +26,7 @@ export const useStyles = makeStyles()(() => ({
     fontFamily: "Open Sans",
     textTransform: "none",
     padding: "5px 10px",
+    width: "109px",
   },
   resetButton: {
     backgroundColor: "#E4F4FF",
@@ -34,5 +35,6 @@ export const useStyles = makeStyles()(() => ({
     fontFamily: "Open Sans",
     textTransform: "none",
     padding: "5px 10px",
+    width: "109px",
   }
 }));

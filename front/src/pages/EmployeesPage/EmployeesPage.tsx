@@ -19,15 +19,30 @@ import {
   PositionProps
 } from "../../services/Employees/employeesService.types";
 import { fetchDepartments, fetchFilteredEmployees, fetchPositions } from "../../services";
+import { Button, SnackbarContent } from "@mui/material";
+import { AddEmployeeModal } from "./modal/AddEmployeeModal";
+import { newEmployees, deletedEmployees } from "@/data/newEmployees";
+import { WarningCircleIcon } from "@/assets";
+import { useAuth } from "@/modules/authentication/AuthContext";
+import { createAuthApi } from "@/services/Auth/authApi";
 
 const EmployeesPage = () => {
   const {classes} = useStyles();
+  const { token, isAuthenticated } = useAuth();
+  
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [view, setView] = useState("table");
+
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [allEmployees, setAllEmployees] = useState<Employee[]>([]);
   const [searchValue, setSearchValue] = useState("");
   const [isCollapsedFilters, setIsCollapsedFilters] = useState(true);
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [isRefresh, setIsRefresh] = useState<boolean>(false);
+  const [isUpdateTable, setIsUpdateTable] = useState<boolean>(false);
+  const hasAdded = newEmployees?.filter(newEmp => !allEmployees?.some(oldEmp => oldEmp.redmineId === newEmp.redmineId)) || [];
+  const hasDeleted = allEmployees?.filter(e => !deletedEmployees?.some(d => d.redmineId === e.redmineId)) || [];
+  
   const [filtersData, setFiltersData] = useState<filtersDataProps>({})
   const [searchText, setSearchText] = useState<string>("");
   const [selectedDepartments, setSelectedDepartments] = useState<DepartmentProps[]>([]);
@@ -43,7 +58,7 @@ const EmployeesPage = () => {
   const filtersTouched = filtersValue.name?.length || 
                          filtersValue.department?.length || 
                          filtersValue.position?.length ||
-                         filtersValue.onVacation;
+                         filtersValue.onVacation !== undefined;
 
   const getPayloadFilters = () => {
     const payload: EmployeesSearchFindDataProps = {
@@ -82,7 +97,6 @@ const EmployeesPage = () => {
       setTimeout(() => {
         setEmployees(response.data);
         setIsLoading(false);
-        setIsRefresh(false);
       }, 800);
 
     } catch (error) {
@@ -90,11 +104,38 @@ const EmployeesPage = () => {
     }
   };
 
+  const getAllEmployees = async () => {
+    if (!token) return;
+  
+    const authApi = createAuthApi(token); // Создаём авторизованный API
+  
+    try {
+      const response = await authApi.fetchEmployees();
+      setAllEmployees(response.data);
+    } catch (error) {
+      console.error("Ошибка при получении данных о сотрудниках:", error);
+    }
+  };
+  
   useEffect(() => {
-    setIsLoading(true);
-    loadEmployees();
+    setIsRefresh(true);
+    getAllEmployees();
+  }, [])
+
+  useEffect(() => {
+    if (isRefresh) {
+      setIsLoading(true);
+      setIsRefresh(false);
+      loadEmployees();
+    }
   }, [searchText, filtersValue, sorting, isRefresh]);
 
+  useEffect(() => {
+    if (isUpdateTable) {
+      getAllEmployees();
+      setIsUpdateTable(false);
+    }
+  }, [isUpdateTable]);
   
   const getFiltersData = async () => {
     try {
@@ -118,51 +159,80 @@ const EmployeesPage = () => {
   const clear = () => {
     setSearchValue("");
     setSearchText("");
+    setIsRefresh(true);
   };
   const search = () => {
     setSearchText(searchValue);
+    setIsRefresh(true);
   };
+
+  const action = (
+    <Button 
+      className={classes.snackbarButton}
+      onClick={() => setIsOpenUpdateModal(true)}
+    >
+      Посмотреть
+    </Button>
+  );
 
   return (
     <div className={classes.pageContainer}>
-      <div style={{ flex: "none" }}><BackButton path="/company-info" width="83.5px" height="38px"/></div>
+      <div style={{ display: "flex", flex: "none", alignItems: "center", justifyContent: "space-between" }}>
+        <BackButton path="/company-info" width="83.5px" height="38px"/>
+        {isAuthenticated && (hasAdded.length > 0 || hasDeleted.length > 0) &&
+          <SnackbarContent 
+            className={classes.snackbar} 
+            message={
+              <div className={classes.snackContent}>
+                <WarningCircleIcon />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span> Доступны новые данные о сотрудниках </span>
+                </div>
+              </div>
+            }
+            action={action}
+          />
+        }
+      </div>
       <EmployeesSearch 
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         isCollapsedFilters={isCollapsedFilters}
         setIsCollapsedFilters={setIsCollapsedFilters}
         filtersTouched={filtersTouched}
+        filtersData={filtersData}
         view={view}
         setView={setView}
         clear={clear}
         search={search}
       />
-      
-        {!isCollapsedFilters && 
-          <EmployeesPageFilters
-            filtersData={filtersData}
-            selectedDepartments={selectedDepartments}
-            setSelectedDepartments={setSelectedDepartments}
-            selectedPositions={selectedPositions}
-            setSelectedPositions={setSelectedPositions}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-            apply={() => {
-              setFiltersValue({
-                department: selectedDepartments.map(x => x.id),
-                position: selectedPositions.map(x => x.id),
-                onVacation: selectedStatus,
-              })
-            }}
-            clear={() => {
-              setFiltersValue(filtersValueDefault);
-              setSelectedDepartments([]);
-              setSelectedPositions([]);
-              setSelectedStatus(undefined);
-              clear();
-            }}
-          />
-        }
+      {!isCollapsedFilters && 
+        <EmployeesPageFilters
+          filtersData={filtersData}
+          selectedDepartments={selectedDepartments}
+          setSelectedDepartments={setSelectedDepartments}
+          selectedPositions={selectedPositions}
+          setSelectedPositions={setSelectedPositions}
+          selectedStatus={selectedStatus}
+          setSelectedStatus={setSelectedStatus}
+          apply={() => {
+            setFiltersValue({
+              department: selectedDepartments.map(x => x.id),
+              position: selectedPositions.map(x => x.id),
+              onVacation: selectedStatus,
+            })
+            setIsRefresh(true);
+          }}
+          clear={() => {
+            setFiltersValue(filtersValueDefault);
+            setSelectedDepartments([]);
+            setSelectedPositions([]);
+            setSelectedStatus(undefined);
+            clear();
+            setIsRefresh(true);
+          }}
+        />
+      }
       {/*<div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", marginTop: "20px", gap: "83.5px" }}>
         <div className={classes.tabContainer}>
           <div style={{ width: "12px", height: "46px", marginLeft: "83.5px", backgroundColor: "#3798EA" }}>
@@ -183,14 +253,28 @@ const EmployeesPage = () => {
             sorting={sorting}
             onSortingChange={setSorting}
             setIsRefresh={setIsRefresh}
+            refresh={() => setIsRefresh(true)}
           /> :
           <EmployeesPageCard
             filtersData={filtersData}
             data={employees}
+            isLoading={isLoading}
             setIsRefresh={setIsRefresh}
           />
         }
       </div>
+      <AddEmployeeModal
+        allEmployees={allEmployees}
+        newEmployees={hasAdded}
+        deletedEmployees={hasDeleted}
+        filtersData={filtersData}
+        refresh={() => {
+          setIsRefresh(true);
+          setIsUpdateTable(true);
+        }}
+        isOpen={isOpenUpdateModal}
+        onClose={() => setIsOpenUpdateModal(false)}
+      />
     </div>
   )
 }

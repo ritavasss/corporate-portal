@@ -22,6 +22,17 @@ export const useStyles = makeStyles()(
       "& .MuiAutocomplete-tag": { display: "none" },
     },
     textField: {
+      "&.error .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "red !important",
+        },
+        "&:hover fieldset": {
+          borderColor: "red !important",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "red !important",
+        },
+      },
       "& .MuiOutlinedInput-root": {
         height: "100%",
         borderRadius: "30px",

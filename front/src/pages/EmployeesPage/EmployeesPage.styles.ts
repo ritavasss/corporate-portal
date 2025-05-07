@@ -35,4 +35,27 @@ export const useStyles = makeStyles()(() => ({
     fontSize: "20px",
     cursor: "default",
   },
+  snackbar: {
+    backgroundColor: "transparent",
+    color: "#011532",
+    marginBottom: "40px",
+    boxShadow: "none",
+    border: "1px solid #3798EA",
+    borderRadius: "8px",
+    fontFamily: "Open Sans",
+  },
+  snackbarButton: {
+    color: "#3798EA",
+    textDecoration: "underline",
+    textTransform: "none",
+    fontFamily: "Open Sans",
+  },
+  snackContent: {
+    display: "flex",
+    gap: "12px",
+    alignItems: "center",
+    ">svg": {
+      transform: "rotate(180deg)",
+    }
+  },
 }));

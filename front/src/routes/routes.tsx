@@ -5,7 +5,7 @@ import { Layout } from "@layouts/Layout";
 import { ProjectPage } from "@pages/CompanyProjectsPage/ProjectPage/ProjectPage";
 import { 
   AdaptationProgramPage,
-  AutorizationPage,
+  AuthorizationPage,
   CompanyInfoPage,
   CompanyProjectsPage,
   CorporateCulturePage,
@@ -15,7 +15,7 @@ import {
   MainPage,
   PersonnelIssuesPage,
   RedmineLaborPage,
-  ReferalProgramPage
+  ReferalProgramPage,
 } from "@pages/index";
 
 const AppRoutes: FC = () => {
@@ -37,7 +37,7 @@ const AppRoutes: FC = () => {
           <Route path="company-projects/emi/:projectId" element={<ProjectPage />} />
           <Route path="company-info/employees" element={<EmployeesPage />}/>
         </Route>
-        <Route path="login" element={<AutorizationPage />} />
+        <Route path="login" element={<AuthorizationPage />} />
       </Routes>
     </Router>
   )

@@ -30,10 +30,24 @@ type Props = {
     hideLabel?: boolean;
     readOnly?: boolean;
     onChange: (value?: string | null) => void;
+    hasError?: boolean;
 };
 
-const CustomDate = ({ label, value, readOnly, onChange }: Props) => {
+const CustomDate = ({ label, value, readOnly, onChange, hasError }: Props) => {
   const { classes } = useStyles();
+  
+  const handleChange = (newValue: Date | null) => {
+    if (!newValue || isNaN(newValue.getTime())) {
+      onChange(null);
+    } else {
+      const formatted = customDate.format({ 
+        val: newValue, 
+        formatIn: undefined, 
+        formatOut: "yyyy-MM-DD" 
+      });
+      onChange(formatted);
+    }
+  };
 
   return (
     <div className={
@@ -52,17 +66,10 @@ const CustomDate = ({ label, value, readOnly, onChange }: Props) => {
         }
       >
         <DatePicker
-          className={classes.datePicker}
+          className={clsx(classes.datePicker, { "error": hasError })}
           value={getDate(value)}
           views={["year", "month", "day"]}
-          onChange={(value) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const val = value instanceof Date && !isNaN(value)
-              ? customDate.format({ val: value, formatIn: undefined, formatOut: "yyyy-MM-DD" })
-              : undefined;
-            onChange(val);
-          }}
+          onChange={handleChange}
           slotProps={{
             textField: {
               className: classes.textField,

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Button, Typography, Modal, Backdrop, Fade } from "@mui/material";
 
 import { useStyles } from "./ConfirmModal.styles";
-import { WarningOrangeCircleIcon } from "../../../../assets";
+import { WarningOrangeCircleIcon } from "@/assets";
 
 type Props = {
     text: string;
@@ -19,50 +19,46 @@ const ConfirmModal: FC<Props> = ({
 }) => {
   const { classes } = useStyles();
 
-  if (isOpenModal) {
-    return (
-      <Modal
-        open={true}
-        onClose={onCloseModal}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={true}>
-          <div className={classes.modal}>
-            <div>
-              <WarningOrangeCircleIcon className={classes.warningIcon} />
-            </div>
-            <div className={classes.header}>
-              <Typography
-                className={classes.warningHeaderText}
-              >
-                Внимание!
-              </Typography>
-            </div>
-            <div className={classes.warningText}>
-              {text}
-            </div>
-            <div className={classes.footer}>
-              <Button className={classes.cancelBtn} onClick={onCloseModal}>
-                <Typography>Отменить</Typography>
-              </Button>
-              <Button
-                className={classes.applyBtn}
-                onClick={handlerDelete}
-              >
-                Удалить
-              </Button>
-            </div>
+  return (
+    <Modal
+      open={isOpenModal}
+      onClose={onCloseModal}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={isOpenModal}>
+        <div className={classes.modal}>
+          <div>
+            <WarningOrangeCircleIcon className={classes.warningIcon} />
           </div>
-        </Fade>
-      </Modal>
-    );
-  }
-
-  return null;
+          <div className={classes.header}>
+            <Typography
+              className={classes.warningHeaderText}
+            >
+              Внимание!
+            </Typography>
+          </div>
+          <div className={classes.warningText}>
+            {text}
+          </div>
+          <div className={classes.footer}>
+            <Button className={classes.cancelBtn} onClick={onCloseModal}>
+              <Typography>Отменить</Typography>
+            </Button>
+            <Button
+              className={classes.applyBtn}
+              onClick={handlerDelete}
+            >
+              Удалить
+            </Button>
+          </div>
+        </div>
+      </Fade>
+    </Modal>
+  );
 };
 
 export { ConfirmModal };

@@ -6,27 +6,29 @@ import { useStyles } from "./CustomAutocomplete.styles";
 
 type Props = {
   multiple?: boolean;
-  lable?: string;
+  label?: string;
   options: any[];
   values: any[] | any;
   setValues: (value: any) => void;
   disableClearIcon?: boolean;
+  hasError?: boolean;
 }
 const CustomAutocomplete = ({
   multiple,
-  lable,
+  label,
   options,
   values,
   setValues,
   disableClearIcon,
+  hasError,
 }: Props) => {
 
   const { classes } = useStyles();
-  
+
   return (
     <div className={classes.container}>
-      { lable && 
-        <div className={classes.lable}>{lable}</div> 
+      { label && 
+        <div className={classes.lable}>{label}</div> 
       }
       <Autocomplete
         multiple={multiple}
@@ -41,7 +43,7 @@ const CustomAutocomplete = ({
             {...params} 
             variant="outlined"
             placeholder={ multiple && values.length ? "Поиск" : "Выберите" }
-            className={classes.textField}
+            className={clsx(classes.textField, { "error": hasError})}
             inputProps={{ ...params.inputProps, readOnly: disableClearIcon ? true : false }}
           />
         )}

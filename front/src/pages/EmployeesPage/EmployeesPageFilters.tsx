@@ -37,14 +37,14 @@ const EmployeesPageFilters = ({
           options={filtersData.departments || []}
           values={selectedDepartments}
           setValues={setSelectedDepartments}
-          lable="Департамент"
+          label="Департамент"
         />
         <CustomAutocomplete
           multiple
           options={filtersData.positions || []}
           values={selectedPositions}
           setValues={setSelectedPositions}
-          lable="Должность"
+          label="Должность"
         />
         <CustomAutocomplete
           options={[
@@ -59,7 +59,7 @@ const EmployeesPageFilters = ({
           setValues={(newValue) =>
             setSelectedStatus(newValue ? newValue.value : undefined)
           }
-          lable="В отпуске"
+          label="В отпуске"
         />
       </div>
       <div className={classes.buttonsContainer}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -16,7 +16,7 @@ import { SortingIcon } from "@assets/icons";
 import { Employee, filtersDataProps } from "@services/Employees/employeesService.types";
 import { CustomAutocomplete, Loader } from "@modules/common/components";
 
-const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange, setIsRefresh }:
+const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange, setIsRefresh, refresh }:
   { 
     filtersData: filtersDataProps;
     data: Employee[];
@@ -24,6 +24,7 @@ const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange
     sorting: SortingState;
     onSortingChange: (updater: SortingState | ((old: SortingState) => SortingState)) => void;
     setIsRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+    refresh: () => void;
   }) => {
   const { classes } = useStyles();
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
@@ -101,6 +102,7 @@ const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange
     onSortingChange([
       { id: columnId, desc: newSortingDirection === 'desc' },
     ]);
+    refresh();
   };
 
   const table = useReactTable({
@@ -140,7 +142,7 @@ const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange
                       width: `${header.column.getSize()}px`,
                       cursor: header.column.getCanSort() ? "pointer" : "default",
                     }}
-                    onClick={() => handleSortingChange(header.id)}
+                    onClick={() => ["surname", "department", "position"].some(x => x === header.id) && handleSortingChange(header.id)}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                       {flexRender(header.column.columnDef.header, header.getContext())}
@@ -241,6 +243,7 @@ const EmployeesTable = ({ filtersData, data, isLoading, sorting, onSortingChange
         </div>
       </div>
       <EmployeeModal
+        isOpen={selectedEmployee !== null}
         filtersData={filtersData}
         employee={selectedEmployee}
         refresh={() => setIsRefresh(true)}

@@ -1,5 +1,6 @@
 export interface Employee {
   id: number;
+  redmineId: number;
   surname: string;
   name: string;
   photo: string;
@@ -60,4 +61,9 @@ export type EmployeesSearchFindDataProps = {
 export type filtersDataProps = {
   departments?: DepartmentProps[];
   positions?: PositionProps[];
+};
+
+export type EmployeesDataProps = {
+  data: Employee[];
+  total: number;
 };

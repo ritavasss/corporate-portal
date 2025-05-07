@@ -95,7 +95,7 @@ export const useStyles = makeStyles()(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "32px",
+    marginTop: "48px",
     gap: 6,
     "> span": {
       fontFamily: "Open Sans",
@@ -161,6 +161,6 @@ export const useStyles = makeStyles()(() => ({
     width: "100%",
     height: "100%",
     marginTop: "50px",
-    left: "-50px"
+    left: "-20px"
   },
 }));

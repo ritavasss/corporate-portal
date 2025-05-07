@@ -1,25 +1,46 @@
 import axios from "axios";
-import { DepartmentProps, EmployeesSearchFindDataProps, PositionProps } from "./employeesService.types";
+import { 
+  DepartmentProps, 
+  EmployeesDataProps, 
+  EmployeesSearchFindDataProps, 
+  PositionProps
+} from "./employeesService.types";
+
+const api = axios.create({
+  baseURL: "http://localhost:8080/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 export const fetchDepartments = async (): Promise<DepartmentProps[]> => {
-  const response = await axios.get("http://localhost:8080/api/departments");
-  return response.data;
+  try {
+    const response = await api.get("/departments");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching departments:", error);
+    throw error;
+  }
 };
 
 export const fetchPositions = async (): Promise<PositionProps[]> => {
-  const response = await axios.get("http://localhost:8080/api/positions");
-  return response.data;
+  try {
+    const response = await api.get("/positions");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching positions:", error);
+    throw error;
+  }
 };
 
-export const fetchFilteredEmployees = async (payload: EmployeesSearchFindDataProps): Promise<any> => {
-  const response = await axios.post("http://localhost:8080/api/employee/filter", payload);
-  return response.data;
-};
-
-export const updateEmployee = async (id: number, payload: any): Promise<void> => {
-  await axios.put(`http://localhost:8080/api/employee/${id}`, payload);
-};
-
-export const deleteEmployee = async (id: number) => {
-  await axios.delete(`http://localhost:8080/api/employee/${id}`);
+export const fetchFilteredEmployees = async (
+  payload: EmployeesSearchFindDataProps
+): Promise<EmployeesDataProps> => {
+  try {
+    const response = await api.post("/employee/filtered-list", payload);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching filtered employees:", error);
+    throw error;
+  }
 };

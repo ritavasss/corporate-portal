@@ -1,6 +1,18 @@
 import { makeStyles } from "tss-react/mui";
 
 export const useStyles = makeStyles()(() => ({
+  tooltip: {
+    padding: "8px 12px",
+    backgroundColor: "white",
+    color: "#011532",
+    fontFamily: "Open Sans",
+    fontSize: "14px",
+    lineHeight: "24px",
+    fontWeight: 400,
+    filter: "drop-shadow(5px 5px 5px rgba(0,0,0,0.3))",
+    borderRadius: "8px",
+  },
+
   modal: {
     position: "absolute",
     top: "50%",
@@ -15,13 +27,13 @@ export const useStyles = makeStyles()(() => ({
   image: {
     borderRadius: "12px",
     width: "200px",
-    margin: "28px 0 6px 0",
+    marginBottom: "34px",
   },
   headerRow: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: "24px 0 8px 0",
+    margin: "20px 0 24px 0",
   },
   container: {
     display: "flex",
@@ -106,23 +118,19 @@ export const useStyles = makeStyles()(() => ({
       border: "1px solid red !important",
     },
   },
-  deleteButton: {
-    padding: 0,
+  addButton: {
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
     filter: "none",
+    minWidth: "40px",
   },
-  tooltip: {
-    padding: "8px 12px",
-    backgroundColor: "white",
-    color: "#011532",
-    fontFamily: "Open Sans",
-    fontSize: "14px",
-    lineHeight: "24px",
-    fontWeight: 400,
-    filter: "drop-shadow(5px 5px 5px rgba(0,0,0,0.3))",
-    borderRadius: "8px",
+  deleteButton: {
+    backgroundColor: "transparent",
+    border: "none",
+    cursor: "pointer",
+    filter: "none",
+    padding: "0 6px",
   },
   errorText: {
     color: "red",
@@ -139,7 +147,6 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: "12px",
     alignItems: "center",
     justifyContent: "center",
-    margin: "28px 0 11px 0",
   },
   attachLabel: {
     color: "#3798EA",

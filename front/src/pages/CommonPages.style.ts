@@ -78,6 +78,13 @@ export const useStyles = makeStyles<{ markerColor?: string }>()((theme, { marker
       lineHeight: "28px",
       margin: "12px 0 24px 0",
     },
+    div: {
+      fontFamily: "Open Sans",
+      fontSize: "18px",
+      fontWeight: 400,
+      lineHeight: "28px",
+      margin: "12px 0 24px 0",
+    },
     ul: {
       listStyle: "none",
       paddingLeft: "19px",

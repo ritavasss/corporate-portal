@@ -71,4 +71,15 @@ export const useStyles = makeStyles()(() => ({
       background: "#2A7ACC !important",
     },
   },
+  loaderContainer: {
+    position: "fixed",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 0,
+    width: "100%",
+    height: "100%",
+    marginTop: "50px",
+    left: "-20px"
+  },
 }));

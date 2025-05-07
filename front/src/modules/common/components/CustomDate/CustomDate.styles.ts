@@ -12,6 +12,11 @@ export const useStyles = makeStyles()(
           "&.MuiOutlinedInput-root": {
             alignItems: "start",
           },
+          ".MuiInputAdornment-root": {
+            "> button": {
+              display: "none",
+            },
+          },
         },
         "fieldset": {
           background: "unset",
@@ -50,7 +55,7 @@ export const useStyles = makeStyles()(
       lineHeight: "20px",
     },
     datePicker: {
-      margin: "6px 0 0 0 !important",
+      margin: "8px 0 0 0 !important",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "flex-start",
@@ -63,8 +68,20 @@ export const useStyles = makeStyles()(
       "& > .MuiInputBase-input": {
         paddingRight: "0px !important",
       },
+      "&.error .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "red !important",
+        },
+        "&:hover fieldset": {
+          borderColor: "red !important",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "red !important",
+        },
+      },
       ".MuiOutlinedInput-root": {
         borderRadius: "30px",
+        
         "&:hover fieldset": {
           borderColor: "#1E89D6 !important",
         },

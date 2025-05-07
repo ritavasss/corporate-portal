@@ -7,22 +7,6 @@ export const useStyles = makeStyles()(() => ({
     alignItems: "center",
     marginBottom: "24px",
   },
-  filterIcon: {
-    background: "#F1F3F5 !important",
-    border: "none !important",
-    display: "flex",
-    alignItems: "center",
-    borderRadius: "30px",
-    padding: "0 8px",
-    height: "38px",
-    marginLeft: "10px",
-    "&.noBackground": {
-      background: "none !important",
-    },
-  },
-  chevronExpand: {
-    transform: "rotate(180deg)",
-  },
   searchInput: {
     border: "1px solid rgba(0, 0, 0, 0.23)",
     borderRadius: "30px",
@@ -45,6 +29,33 @@ export const useStyles = makeStyles()(() => ({
       display: "none",
     },
   },
+  buttons: {
+    display: "flex",
+    gap: "10px",
+  },
+  addIcon: {
+    backgroundColor: "transparent",
+    border: "none",
+    cursor: "pointer",
+    filter: "none",
+    minWidth: "40px",
+  },
+  filterIcon: {
+    background: "#F1F3F5 !important",
+    border: "none !important",
+    display: "flex",
+    alignItems: "center",
+    borderRadius: "30px",
+    padding: "0 8px",
+    height: "38px",
+    cursor: "pointer",
+    "&.noBackground": {
+      background: "none !important",
+    },
+  },
+  chevronExpand: {
+    transform: "rotate(180deg)",
+  },
   searchIcon: {
     marginLeft: 8,
     cursor: "pointer",
@@ -54,7 +65,6 @@ export const useStyles = makeStyles()(() => ({
     minWidth: 0,
     height: "38px",
     padding: 0,
-    marginLeft: "10px",
     backgroundColor: "#E4F4FF",
     borderRadius: "30px",
     cursor: "pointer",
